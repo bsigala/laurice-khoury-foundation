@@ -1,0 +1,214 @@
+{
+  "neuroscience_principles": {
+    "dopamine_triggers": [
+      {
+        "mechanism": "Variable Reward Scheduling",
+        "implementation": "Unpredictable delightful animations, hover effects at random intervals",
+        "psychological_basis": "Variable ratios produce higher sustained activity than fixed ratios - users never know when next reward comes",
+        "research_source": "Behavioral psychology, operant conditioning (Skinner)"
+      },
+      {
+        "mechanism": "Progress Visualization",
+        "implementation": "Counter animations (0\u2192208 students), achievement unlocks, milestone reveals",
+        "psychological_basis": "Dopamine released when goal proximity is visualized - creates anticipation",
+        "research_source": "Goal gradient hypothesis"
+      },
+      {
+        "mechanism": "Anticipatory Animation",
+        "implementation": "Scroll-triggered reveals with stagger delays, parallax depth effects",
+        "psychological_basis": "Anticipation of reward triggers dopamine MORE than reward itself",
+        "research_source": "Neuroscience of anticipation (Schultz, dopamine research)"
+      },
+      {
+        "mechanism": "Completion Feedback",
+        "implementation": "Button scale effects (1.05x), glow intensification, ripple on click",
+        "psychological_basis": "Immediate tactile feedback creates satisfaction loop",
+        "research_source": "Micro-interaction psychology"
+      }
+    ],
+    "serotonin_triggers": [
+      {
+        "mechanism": "Achievement Recognition",
+        "implementation": "Timeline milestones that unlock, badge-style module completion",
+        "psychological_basis": "Social validation and accomplishment boost serotonin",
+        "research_source": "Self-determination theory"
+      },
+      {
+        "mechanism": "Calm Visual Hierarchy",
+        "implementation": "Balanced color gradients, smooth transitions, generous white space",
+        "psychological_basis": "Visual calm reduces cortisol, allows serotonin to stabilize mood",
+        "research_source": "Color psychology, visual perception"
+      }
+    ],
+    "cognitive_engagement": [
+      {
+        "principle": "Von Restorff Effect",
+        "application": "High-contrast CTAs (orange gradients) against deep blue backgrounds",
+        "impact": "Items that stand out are remembered 3x better"
+      },
+      {
+        "principle": "Zeigarnik Effect",
+        "application": "Progressive disclosure - content reveals as you scroll",
+        "impact": "Incomplete tasks create cognitive tension that demands completion"
+      },
+      {
+        "principle": "Peak-End Rule",
+        "application": "Powerful hero opening + climactic 'Your Path' CTA section at end",
+        "impact": "Users remember emotional peaks and endings most"
+      }
+    ]
+  },
+  "design_specifications": {
+    "color_palette": {
+      "primary": {
+        "Deep Space Blue": "#0a1628",
+        "Electric Purple": "#8b5cf6",
+        "Vibrant Orange": "#f97316",
+        "Neon Cyan": "#06b6d4",
+        "Success Green": "#10b981"
+      },
+      "gradients": {
+        "hero_background": "radial-gradient(circle at top, #1e293b 0%, #0f172a 50%, #020617 100%)",
+        "button_primary": "linear-gradient(135deg, #f97316, #facc15)",
+        "card_accents": "linear-gradient(120deg, #8b5cf6, #06b6d4)"
+      },
+      "glow_effects": {
+        "text": "0 0 20px rgba(139, 92, 246, 0.5)",
+        "buttons": "0 0 40px rgba(251, 191, 36, 0.6)",
+        "cards": "0 12px 24px rgba(139, 92, 246, 0.3)"
+      },
+      "psychological_impact": "High-contrast, vibrant colors trigger dopamine; gradients create depth perception"
+    },
+    "animation_timings": {
+      "micro_interactions": {
+        "button_hover_scale": "0.3s ease-out",
+        "card_lift": "0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "glow_pulse": "2s ease-in-out infinite"
+      },
+      "scroll_triggers": {
+        "fade_in": "0.8s ease-out",
+        "slide_in": "1s cubic-bezier(0.22, 1, 0.36, 1)",
+        "counter_animation": "1.5s ease-out",
+        "stagger_delay": "0.15s between elements"
+      },
+      "parallax": {
+        "background_speed": "0.5x scroll speed",
+        "foreground_speed": "1x scroll speed",
+        "depth_layers": 3
+      }
+    },
+    "interactive_elements": {
+      "buttons": {
+        "hover": "Scale 1.05, shadow intensify, gradient shift",
+        "click": "Ripple effect radiating from click point",
+        "focus": "Glow outline for accessibility"
+      },
+      "cards": {
+        "hover": "translateY(-8px), shadow 0 12px 24px",
+        "counter": "Animate from 0 to target over 1.5s when visible",
+        "stagger": "Each card delays 150ms after previous"
+      },
+      "toggles": {
+        "transition": "Slide animation 0.3s, background color fade",
+        "states": "Khoury Story / Your Map perspectives"
+      }
+    }
+  },
+  "content_architecture": {
+    "narrative_flow": [
+      {
+        "section": "Hero",
+        "psychological_goal": "Capture attention, establish credibility",
+        "emotional_target": "Awe + Curiosity",
+        "key_elements": [
+          "Powerful tagline",
+          "Animated metrics",
+          "Dual CTAs"
+        ],
+        "dopamine_trigger": "Visual spectacle + impressive stats"
+      },
+      {
+        "section": "Khoury Journey",
+        "psychological_goal": "Build personal connection",
+        "emotional_target": "Inspiration + Identification",
+        "key_elements": [
+          "Timeline progression",
+          "Toggle personalization",
+          "Milestone unlocks"
+        ],
+        "dopamine_trigger": "Achievement visualization + interactive control"
+      },
+      {
+        "section": "Impact Data",
+        "psychological_goal": "Establish trust through evidence",
+        "emotional_target": "Conviction + Validation",
+        "key_elements": [
+          "Animated counters",
+          "Scenario tabs",
+          "Real metrics"
+        ],
+        "dopamine_trigger": "Numbers counting up = progress visualization"
+      },
+      {
+        "section": "Curriculum Engine",
+        "psychological_goal": "Clarify actionable path",
+        "emotional_target": "Confidence + Agency",
+        "key_elements": [
+          "3-module framework",
+          "Activity checklists",
+          "Progress indicators"
+        ],
+        "dopamine_trigger": "Clear steps = achievability perception"
+      },
+      {
+        "section": "Your Path",
+        "psychological_goal": "Convert inspiration to commitment",
+        "emotional_target": "Motivation + Empowerment",
+        "key_elements": [
+          "Role-based prompts",
+          "Glowing CTAs",
+          "Personalized actions"
+        ],
+        "dopamine_trigger": "Variable rewards (different for each role) + anticipation of starting"
+      }
+    ],
+    "growth_mindset_encoding": {
+      "language_patterns": [
+        "From limitation \u2192 mathematical justice (transformation narrative)",
+        "AA to PhD (concrete pathway, not fixed ability)",
+        "Measure it, Model it, Rewrite it (agency verbs)",
+        "Turn this framework into YOUR covenant (ownership)",
+        "Blueprint for persistence (replicable, learnable)"
+      ],
+      "psychological_reconstitution": [
+        "Replace: 'I can't do advanced math' with 'I haven't mapped my pathway yet'",
+        "Replace: 'Only geniuses succeed' with 'Structured persistence creates PhDs'",
+        "Replace: 'Disability = limitation' with 'Constraint = catalyst for innovation'"
+      ]
+    }
+  },
+  "performance_metrics": {
+    "technical": {
+      "target_load_time": "< 2 seconds",
+      "animation_fps": "60fps (GPU-accelerated)",
+      "accessibility": "WCAG AA compliance, prefers-reduced-motion support",
+      "cross_browser": "Chrome, Safari, Firefox, Edge (latest 2 versions)"
+    },
+    "engagement_targets": {
+      "avg_session_duration": "3+ minutes",
+      "scroll_depth": "80%+ reach bottom",
+      "CTA_click_rate": "15%+",
+      "bounce_rate": "< 30%",
+      "return_visit_intent": "Bookmark/share rate 20%+"
+    },
+    "psychological_outcomes": {
+      "user_reports": [
+        "Inspired (90%+ target)",
+        "Empowered (85%+ target)",
+        "Connected (80%+ target)",
+        "Motivated to act (75%+ target)",
+        "Awed by design (95%+ target)"
+      ]
+    }
+  }
+}
