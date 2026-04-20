@@ -1,0 +1,3 @@
+[submodule "awesome-free-llm-apis"]
+	path = awesome-free-llm-apis
+	url = https://github.com/mnfst/awesome-free-llm-apis.git
