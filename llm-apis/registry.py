@@ -41,22 +41,22 @@ _load_env()
 # ──────────────────────────────────────────────────────────────────────────────
 
 _PROVIDER_MODULES = {
-    "cerebras":    "llm_apis.providers.cerebras",
-    "cloudflare":  "llm_apis.providers.cloudflare",
-    "cohere":      "llm_apis.providers.cohere",
-    "github":      "llm_apis.providers.github_models",
-    "gemini":      "llm_apis.providers.google_gemini",
-    "groq":        "llm_apis.providers.groq",
-    "huggingface": "llm_apis.providers.huggingface",
-    "kilocode":    "llm_apis.providers.kilocode",
-    "llm7":        "llm_apis.providers.llm7",
-    "mistral":     "llm_apis.providers.mistral",
-    "modelscope":  "llm_apis.providers.modelscope",
-    "nvidia":      "llm_apis.providers.nvidia_nim",
-    "ollama":      "llm_apis.providers.ollama_cloud",
-    "openrouter":  "llm_apis.providers.openrouter",
-    "siliconflow": "llm_apis.providers.siliconflow",
-    "zai":         "llm_apis.providers.zai",
+    "cerebras":    ".providers.cerebras",
+    "cloudflare":  ".providers.cloudflare",
+    "cohere":      ".providers.cohere",
+    "github":      ".providers.github_models",
+    "gemini":      ".providers.google_gemini",
+    "groq":        ".providers.groq",
+    "huggingface": ".providers.huggingface",
+    "kilocode":    ".providers.kilocode",
+    "llm7":        ".providers.llm7",
+    "mistral":     ".providers.mistral",
+    "modelscope":  ".providers.modelscope",
+    "nvidia":      ".providers.nvidia_nim",
+    "ollama":      ".providers.ollama_cloud",
+    "openrouter":  ".providers.openrouter",
+    "siliconflow": ".providers.siliconflow",
+    "zai":         ".providers.zai",
 }
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -134,16 +134,19 @@ _tracker = RateLimitTracker()
 def _load(provider: str):
     if provider not in _PROVIDER_MODULES:
         raise ValueError(f"Unknown provider '{provider}'. Available: {list_providers()}")
-    return importlib.import_module(_PROVIDER_MODULES[provider])
+    pkg = __package__ or __name__.rsplit(".", 1)[0]
+    return importlib.import_module(_PROVIDER_MODULES[provider], package=pkg)
 
 
 def _env_key_set(provider: str) -> bool:
-    """Return True if the provider's API key env var is set."""
+    """Return True if the provider can be used (key set, or key is optional)."""
     try:
         mod = _load(provider)
+        if getattr(mod, "KEY_OPTIONAL", False):
+            return True
         env_var = getattr(mod, "ENV_VAR", None)
         if not env_var:
-            return True  # provider like llm7 doesn't require a key
+            return True
         return bool(os.environ.get(env_var))
     except Exception:
         return False
@@ -274,9 +277,14 @@ def stream_with_fallback(
         if not _env_key_set(provider):
             continue
         try:
-            yield from stream(prompt, provider=provider, model=model, system=system, **kwargs)
+            emitted = False
+            for chunk in stream(prompt, provider=provider, model=model, system=system, **kwargs):
+                emitted = True
+                yield chunk
             return
         except Exception:
+            if emitted:
+                raise  # partial output already sent; can't switch providers mid-stream
             continue
     raise RuntimeError("All providers failed during streaming.")
 
@@ -307,12 +315,17 @@ def health_check(providers: list[str] | None = None, timeout: float = 8.0) -> di
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
         futures = {pool.submit(_ping, p): p for p in targets}
-        for future in concurrent.futures.as_completed(futures, timeout=timeout + 2):
-            try:
-                provider, result = future.result(timeout=timeout)
-                results[provider] = result
-            except Exception as e:
-                results[futures[future]] = {"status": "timeout", "error": str(e)[:80]}
+        try:
+            for future in concurrent.futures.as_completed(futures, timeout=timeout + 2):
+                try:
+                    provider, result = future.result(timeout=timeout)
+                    results[provider] = result
+                except Exception as e:
+                    results[futures[future]] = {"status": "timeout", "error": str(e)[:80]}
+        except concurrent.futures.TimeoutError:
+            for future, provider in futures.items():
+                if provider not in results:
+                    results[provider] = {"status": "timeout", "error": "overall timeout exceeded"}
 
     return dict(sorted(results.items(), key=lambda x: x[1].get("latency_ms", 99999)))
 

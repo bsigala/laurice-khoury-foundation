@@ -9,7 +9,8 @@ from openai import OpenAI
 
 BASE_URL = "https://api.llm7.io/v1"
 KEY_URL  = "https://token.llm7.io"
-ENV_VAR  = "LLM7_API_KEY"
+ENV_VAR      = "LLM7_API_KEY"
+KEY_OPTIONAL = True  # works without a key at 30 RPM; token raises to 120 RPM
 
 MODELS = {
     "deepseek-r1":          {"id": "deepseek-r1-0528",        "modality": "Text (reasoning)", "rate": "30 RPM (120 with token)"},
