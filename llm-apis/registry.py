@@ -110,8 +110,7 @@ class RateLimitTracker:
 
     def calls_in_window(self, provider: str, window_seconds: int = 60) -> int:
         cutoff = time.time() - window_seconds
-        self._counts[provider] = [t for t in self._counts[provider] if t > cutoff]
-        return len(self._counts[provider])
+        return sum(1 for t in self._counts[provider] if t > cutoff)
 
     def report(self) -> dict[str, dict]:
         now = time.time()
@@ -258,6 +257,8 @@ def stream(
         **kwargs,
     )
     for chunk in response:
+        if not chunk.choices:
+            continue
         delta = chunk.choices[0].delta
         if delta and delta.content:
             yield delta.content
@@ -306,7 +307,8 @@ def health_check(providers: list[str] | None = None, timeout: float = 8.0) -> di
         start = time.time()
         try:
             mod = _load(provider)
-            mod.chat("Hi", model=mod.DEFAULT_MODEL, system="Reply with one word.")
+            # Pass timeout so the HTTP call itself is bounded, not just the future
+            mod.chat("Hi", model=mod.DEFAULT_MODEL, system="Reply with one word.", timeout=timeout)
             latency = round((time.time() - start) * 1000)
             return provider, {"status": "ok", "latency_ms": latency, "model": mod.DEFAULT_MODEL}
         except Exception as e:

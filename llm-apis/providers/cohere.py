@@ -7,7 +7,7 @@ Limits: 1,000 API calls/month · Non-commercial use only
 import os
 from openai import OpenAI
 
-BASE_URL = "https://api.cohere.com/v2"
+BASE_URL = "https://api.cohere.com/compatibility/v1"
 KEY_URL  = "https://dashboard.cohere.com/api-keys"
 ENV_VAR  = "COHERE_API_KEY"
 

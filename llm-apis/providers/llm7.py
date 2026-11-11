@@ -25,8 +25,9 @@ DEFAULT_MODEL = "deepseek-v3-0324"
 
 
 def client() -> OpenAI:
-    # Token is optional — basic access works without it, but raises rate limit
-    api_key = os.environ.get(ENV_VAR, "no-key-required")
+    # Token is optional — basic access works without it at 30 RPM
+    # Use `or` so an empty-string value from .env.example is treated as absent
+    api_key = os.environ.get(ENV_VAR) or "no-key-required"
     return OpenAI(api_key=api_key, base_url=BASE_URL)
 
 

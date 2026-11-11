@@ -7,7 +7,7 @@ Limits: ~1,000 RPD · ~$0.10/month free credits · Thousands of models available
 import os
 from openai import OpenAI
 
-BASE_URL = "https://api-inference.huggingface.co/v1"
+BASE_URL = "https://router.huggingface.co/v1"
 KEY_URL  = "https://huggingface.co/settings/tokens"
 ENV_VAR  = "HF_API_TOKEN"
 

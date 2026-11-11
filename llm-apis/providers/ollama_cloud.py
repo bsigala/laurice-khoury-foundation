@@ -12,15 +12,15 @@ KEY_URL = "https://ollama.com/settings/keys"
 ENV_VAR = "OLLAMA_API_KEY"
 
 MODELS = {
-    "llama3.1":    {"id": "llama3.1:cloud",    "context": "128K", "modality": "Text",            "rate": "Session/weekly limits"},
-    "deepseek-r1": {"id": "deepseek-r1:cloud", "context": "128K", "modality": "Text (reasoning)","rate": "Session/weekly limits"},
-    "qwen2.5":     {"id": "qwen2.5:cloud",     "context": "128K", "modality": "Text",            "rate": "Session/weekly limits"},
-    "gemma2":      {"id": "gemma2:cloud",      "context": "8K",   "modality": "Text",            "rate": "Session/weekly limits"},
-    "mistral":     {"id": "mistral:cloud",     "context": "32K",  "modality": "Text",            "rate": "Session/weekly limits"},
+    "llama3.1":    {"id": "llama3.1",    "context": "128K", "modality": "Text",            "rate": "Session/weekly limits"},
+    "deepseek-r1": {"id": "deepseek-r1", "context": "128K", "modality": "Text (reasoning)","rate": "Session/weekly limits"},
+    "qwen2.5":     {"id": "qwen2.5",     "context": "128K", "modality": "Text",            "rate": "Session/weekly limits"},
+    "gemma2":      {"id": "gemma2",      "context": "8K",   "modality": "Text",            "rate": "Session/weekly limits"},
+    "mistral":     {"id": "mistral",     "context": "32K",  "modality": "Text",            "rate": "Session/weekly limits"},
 }
 
-DEFAULT_MODEL = "llama3.1:cloud"
-OLLAMA_CLOUD_HOST = "https://api.ollama.com"
+DEFAULT_MODEL = "llama3.1"
+OLLAMA_CLOUD_HOST = "https://ollama.com"  # native client appends /api/chat
 
 
 def client():
